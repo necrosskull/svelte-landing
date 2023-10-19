@@ -18,6 +18,7 @@
 			url: 'https://github.com/necrosskull'
 		}
 	];
+
 	function transformElement(el, x, y) {
 		const box = el.getBoundingClientRect();
 		const calcX = -(y - box.y - box.height / 2) / constrain;
@@ -28,11 +29,36 @@
 	onMount(() => {
 		ex1Layer = document.getElementById('ex1-layer');
 		const container = document.getElementById('ex1');
+		let isTouching = false;
+
+		const touchStartHandler = (e) => {
+			isTouching = true;
+			const touch = e.touches[0];
+			transformElement(ex1Layer, touch.clientX, touch.clientY);
+			transformBackground(touch.clientX, touch.clientY);
+		};
+
+		const touchMoveHandler = (e) => {
+			if (isTouching) {
+				const touch = e.touches[0];
+				transformElement(ex1Layer, touch.clientX, touch.clientY);
+				transformBackground(touch.clientX, touch.clientY);
+			}
+		};
+
+		const touchEndHandler = () => {
+			isTouching = false;
+			ex1Layer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+		};
+
+		container.addEventListener('touchstart', touchStartHandler);
+		container.addEventListener('touchmove', touchMoveHandler);
+		container.addEventListener('touchend', touchEndHandler);
 
 		const mouseMoveHandler = (e) => {
 			const { clientX, clientY } = e;
 			transformElement(ex1Layer, clientX, clientY);
-			transformBackground(clientX, clientY); // Вызов функции для изменения заднего фона
+			transformBackground(clientX, clientY);
 		};
 
 		const background = document.getElementById('background');
@@ -60,8 +86,11 @@
 		style="background-image: url('/necrosskull.png')"
 		class="absolute inset-0 z-10 bg-cover bg-center brightness-50 opacity-60 blur-3xl"
 	/>
-	<div id="ex1-layer" class="flex items-center justify-center z-20 text-pink-100">
-		<div class="flex flex-col py-2 px-6 rounded-xl lg:py-6 lg:px-8">
+	<div
+		id="ex1-layer"
+		class="flex items-center justify-center z-20 text-pink-100 transform-gpu ease-linear transition-transform"
+	>
+		<div class="flex flex-col py-2 px-6 rounded-xl lg:py-6 lg:px-8 select-none">
 			<div class="flex flex-col text-center mb-4 text-5xl lg:text-6xl">
 				{#each Array(6) as _}
 					<div>
@@ -84,7 +113,7 @@
 			<div class="flex justify-center text-center mb-4 lg:text-2xl">
 				<button
 					on:click={toggleColor}
-					class="bg-purple-900 hover:bg-purple-400 hover:text-purple-950 transition-colors duration-300 rounded-xl p-2 w-full font-bold"
+					class="bg-purple-900 hover:bg-purple-400 hover:text-purple-950 active:bg-purple-900 active:text-purple-100 rounded-xl p-2 w-full font-bold transition-colors duration-300"
 				>
 					Click me
 				</button>

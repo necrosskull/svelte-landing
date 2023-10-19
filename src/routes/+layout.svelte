@@ -9,4 +9,7 @@
 	:global(body) {
 		font-family: 'Noto Sans', sans-serif;
 	}
+	:global(body) {
+		-webkit-tap-highlight-color: transparent;
+	}
 </style>
