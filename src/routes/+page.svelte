@@ -1,20 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	let color1 = 100;
-	let color2 = 600;
 	let constrain = 150;
 	let ex1Layer;
 	let isColorInverted = false;
 
 	function toggleColor() {
 		isColorInverted = !isColorInverted;
-		if (isColorInverted) {
-			color1 = 600;
-			color2 = 100;
-		} else {
-			color1 = 100;
-			color2 = 600;
-		}
 	}
 
 	const links = [
@@ -74,10 +65,19 @@
 			<div class="flex flex-col text-center mb-4 text-4xl lg:text-6xl">
 				{#each Array(6) as _}
 					<div>
-						<span class="font-bold text-purple-{color2} transition-colors duration-500">n</span
-						><span class="font-bold text-purple-{color1} transition-colors duration-500"
-							>ecrossk</span
-						><span class="font-bold text-purple-{color2} transition-colors duration-500">ull</span>
+						<span
+							class="font-bold {!isColorInverted
+								? 'text-purple-600'
+								: 'text-purple-100'} transition-colors duration-500">n</span
+						><span
+							class="font-bold {isColorInverted
+								? 'text-purple-600'
+								: 'text-purple-100'} transition-colors duration-500">ecrossk</span
+						><span
+							class="font-bold {!isColorInverted
+								? 'text-purple-600'
+								: 'text-purple-100'} transition-colors duration-500">ull</span
+						>
 					</div>
 				{/each}
 			</div>
