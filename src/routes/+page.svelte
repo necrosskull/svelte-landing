@@ -62,7 +62,7 @@
 	/>
 	<div id="ex1-layer" class="flex items-center justify-center z-20 text-pink-100">
 		<div class="flex flex-col py-2 px-6 rounded-xl lg:py-6 lg:px-8">
-			<div class="flex flex-col text-center mb-4 text-4xl lg:text-6xl">
+			<div class="flex flex-col text-center mb-4 text-5xl lg:text-6xl">
 				{#each Array(6) as _}
 					<div>
 						<span
@@ -106,7 +106,7 @@
 
 <style>
 	.container {
-		height: 100vh;
+		height: 100dvh;
 		width: 100vw;
 		display: flex;
 		align-items: center;
