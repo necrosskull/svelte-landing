@@ -9,10 +9,10 @@
 	}
 
 	const links = [
-		{
-			name: 'Telegram',
-			url: 'https://t.me/necrosskull'
-		},
+		// {
+		// 	name: 'Telegram',
+		// 	url: 'https://t.me/necrosskull'
+		// },
 		{
 			name: 'GitHub',
 			url: 'https://github.com/necrosskull'
